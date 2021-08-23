@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply border px-8 py-3 uppercase tracking-wide rounded-full outline-none transition focus:ring-2;
+  }
+
+  .btn-primary {
+    @apply border-yellow-500 text-white bg-yellow-500 focus:ring-yellow-500 focus:ring-opacity-50;
+    text-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 6%);
+  }
+
+  .btn-secondary {
+    @apply border-gray-900 text-gray-900 bg-white focus:ring-gray-900 focus:ring-opacity-50;
+  }
+}

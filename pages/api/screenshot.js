@@ -22,11 +22,15 @@ export default async function screenshot(req, res) {
 
   const page = await browser.newPage();
   const url = req.body.url;
-  await page.goto(url, { waitUntil: 'load' });
-  await page.setViewport({ width: 1280, height: 768, deviceScaleFactor: 1 });
-  const image = await page.screenshot({ fullPage: true, encoding: 'base64' });
-
+  await page.goto(url, { waitUntil: 'load', timeout: 0 });
+  await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 2 });
+  const pageTitle = await page.title();
+  const screenshot = await page.screenshot({
+    fullPage: true,
+    encoding: 'base64',
+  });
+  console.log(pageTitle);
   await browser.close();
 
-  res.json({ image });
+  res.json({ pageTitle, screenshot });
 }
