@@ -10,7 +10,12 @@ const Form = forwardRef(({ setScreenshot, resultRef }, ref) => {
 
     try {
       const { url } = Object.fromEntries(new FormData(e.target));
-      const response = await fetch('/api/screenshot', {
+      const path =
+        process.env.NODE_ENV === 'production'
+          ? process.env.SCREENSHOT_CLOUD_FUNC
+          : 'api/screenshot';
+
+      const response = await fetch(path, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
@@ -27,11 +32,9 @@ const Form = forwardRef(({ setScreenshot, resultRef }, ref) => {
           top: resultRef.current.offsetTop,
           behavior: 'smooth',
         });
-
-        e.target.reset();
       }, 300);
     } catch (error) {
-      alert('Something went wrong. Please recheck the URL and try again.');
+      alert('Something went wrong!');
     } finally {
       setTimeout(() => {
         setIsProcessing(false);
@@ -50,7 +53,7 @@ const Form = forwardRef(({ setScreenshot, resultRef }, ref) => {
         type="url"
         id="url"
         name="url"
-        placeholder="Enter URL like https://twitter.com"
+        placeholder="Enter URL like https://netflix.com"
         required
       />
 
