@@ -12,7 +12,7 @@ const Form = forwardRef(({ setScreenshot, resultRef }, ref) => {
       const { url } = Object.fromEntries(new FormData(e.target));
       const path =
         process.env.NODE_ENV === 'production'
-          ? process.env.SCREENSHOT_CLOUD_FUNC
+          ? process.env.NEXT_PUBLIC_SS_CLOUD_FUNC
           : 'api/screenshot';
 
       const response = await fetch(path, {
